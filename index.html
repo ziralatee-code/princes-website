@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ratnaayi Flatshoes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: url("logo backround.png") no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      color: #444;
+      scroll-behavior: smooth;
+    }
+
+    /* Header + logo */
+    header {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 15px 0;
+      z-index: 1000;
+    }
+    .logo img {
+      width: 160px;
+      height: auto;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    nav {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    nav a {
+      text-decoration: none;
+      color: #6a4c93;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #ff5d8f;
+    }
+
+    /* Keranjang */
+    .cart {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #fff;
+      border-radius: 15px;
+      padding: 10px 15px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      cursor: pointer;
+      font-size: 16px;
+      color: #6a4c93;
+      z-index: 1100;
+    }
+    .cart-popup {
+      display: none;
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      width: 300px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+      padding: 15px;
+      z-index: 1200;
+    }
+    .cart-popup h3 {
+      margin-top: 0;
+      color: #6a4c93;
+    }
+    .cart-popup ul {
+      list-style: none;
+      padding: 0;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .cart-popup li {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    .cart-popup button {
+      background: #ff5d8f;
+      border: none;
+      color: white;
+      border-radius: 10px;
+      padding: 2px 8px;
+      cursor: pointer;
+    }
+
+    /* Rotating text */
+    .rotating-text {
+      width: 100%;
+      margin: 10px auto;
+      padding: 8px 20px;
+      background: rgba(255, 192, 203, 0.6);
+      border-radius: 25px;
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 18px;
+      color: #6d597a;
+      font-style: italic;
+      font-weight: bold;
+    }
+    .rotating-text span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 25s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* Section */
+    section {
+      padding: 50px 20px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.85);
+      margin: 20px;
+      border-radius: 20px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #6a4c93;
+      margin-bottom: 30px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 28px;
+    }
+
+    /* Cards */
+    .products, .gallery {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 20px;
+      width: 250px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 15px;
+      transition: transform 0.3s ease;
+    }
+    .card:hover img {
+      transform: scale(1.05);
+    }
+    .card button {
+      margin-top: 10px;
+      padding: 8px 15px;
+      border: none;
+      background: #ff5d8f;
+      color: white;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .card button:hover {
+      background: #e04a79;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #f1aac0;
+      padding: 30px;
+      text-align: center;
+      font-size: 14px;
+      color: #1e1ea0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="home">
+    <div class="logo">
+      <img src="logo sptu.png" alt="Logo Ratnaayi">
+    </div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#produk">Produk</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Cart -->
+  <div class="cart" id="cartBtn">🛒 Keranjang (0) - Rp0</div>
+  <div class="cart-popup" id="cartPopup">
+    <h3>Keranjang Belanja</h3>
+    <ul id="cartItems"></ul>
+    <p><b>Total:</b> Rp<span id="cartTotal">0</span></p>
+  </div>
+
+  <!-- Running text -->
+  <div class="rotating-text">
+    <span>💐 Selamat datang di gallery Flatshoes Ratnaayi 💕 ✨ Temukan flatshoes cantik dengan harga ramah di kantong 👠 Limited Edition – jangan sampai kehabisan 🌸</span>
+  </div>
+
+  <!-- Limited Edition -->
+  <section id="produk">
+    <h2>✨ Limited Edition Flatshoes ✨</h2>
+    <div class="products">
+      <div class="card">
+        <img src="flt gren.jpg" alt="Flatshoes Pinkiy">
+        <h3>Flatshoes grenn</h3>
+        <p>Rp.800 000</p>
+        <button onclick="addToCart('Flatshoes Pinkiy',800000)">Tambah ke Keranjang</button>
+      </div>
+      <div class="card">
+        <img src="gmbrr flt krem.jpg" alt="Flatshoes Kremyy">
+        <h3>Flatshoes Kremyy</h3>
+        <p>Rp.500 000</p>
+        <button onclick="addToCart('Flatshoes Kremyy',500000)">Tambah ke Keranjang</button>
+      </div>
+      <div class="card">
+        <img src="flat pky.jpg" alt="Flatshoes Bling">
+        <h3>Flatshoes Bling</h3>
+        <p>Rp.700 000</p>
+        <button onclick="addToCart('Flatshoes Bling',700000)">Tambah ke Keranjang</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Koleksi Flatshoes -->
+  <section>
+     
+    <div class="gallery">
+      <div class="card"><img src="https://cf.shopee.co.id/file/sg-11134201-824h8-meju1xdqxrlv23"><h3>Flatshoes Classic</h3><p>Rp.400 000</p><button onclick="addToCart('Flatshoes Classic',400000)">Tambah ke Keranjang</button></div>
+      <div class="card"><img src="2.jpg"><h3>Flatshoes Ribbon</h3><p>Rp.300 000</p><button onclick="addToCart('Flatshoes Ribbon',300000)">Tambah ke Keranjang</button></div>
+      <div class="card"><img src="https://i5.walmartimages.com/asr/61ec84c8-ae93-4337-bcf3-534e8d94191c.8094613874797c70d6b45cb44281c432.jpeg"><h3>Flatshoes Pastel</h3><p>Rp.600 000</p><button onclick="addToCart('Flatshoes Pastel',600000)">Tambah ke Keranjang</button></div>
+      <div class="card"><img src="logo sptu44.jpg"><h3>Flatshoes daisy</h3><p>Rp.200 000</p><button onclick="addToCart('Flatshoes Glossy',200000)">Tambah ke Keranjang</button></div>
+      <div class="card"><img src="5.jpg"><h3>Flatshoes Casual</h3><p>Rp.300 000</p><button onclick="addToCart('Flatshoes Casual',300000)">Tambah ke Keranjang</button></div>
+      <div class="card"><img src="6.jpg"><h3>Flatshoes yellow</h3><p>Rp.200 000</p><button onclick="addToCart('Flatshoes Black',200000)">Tambah ke Keranjang</button></div>
+      <div class="card"><img src="logo sptu33.jpg"><h3>Flatshoes pitaa</h3><p>Rp.200 000</p><button onclick="addToCart('Flatshoes Denim',200000)">Tambah ke Keranjang</button></div>
+      <div class="card"><img src="8.jpg"><h3>Flatshoes Floral</h3><p>Rp.400 000</p><button onclick="addToCart('Flatshoes Floral',400000)">Tambah ke Keranjang</button></div>
+      <div class="card"><img src="logo sptu11.jpg"><h3>Flatshoes bintana</h3><p>Rp.300 000</p><button onclick="addToCart('Flatshoes Sporty',300000)">Tambah ke Keranjang</button></div>
+      <div class="card"><img src="10.jpg"><h3>Flatshoes grey</h3><p>Rp.400 000</p><button onclick="addToCart('Flatshoes Nude',400000)">Tambah ke Keranjang</button></div>
+      <div class="card"><img src="https://m.media-amazon.com/images/I/71L+QWS+HkL._AC_SL1500_.jpg"><h3>Flatshoes Luxury</h3><p>Rp.200 000</p><button onclick="addToCart('Flatshoes Luxury',200000)">Tambah ke Keranjang</button></div>
+    
+      
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <p>© 2025 Ratnaayi Gallery Flatshoes <br> All Rights Reserved</p>
+    <p>📍 Pemalang | 📧 <a href="mailto:ziralatee@gmail.com">ziralatee@gmail.com</a> | 📱 <a href="https://wa.me/6281585869722">+62 815-8586-9722</a></p>
+  </footer>
+
+  <!-- Script Keranjang -->
+  <script>
+    let cart = [];
+
+    function addToCart(name, price) {
+      cart.push({name, price});
+      updateCart();
+    }
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCart();
+    }
+    function updateCart() {
+      let cartItems = document.getElementById("cartItems");
+      let cartTotal = document.getElementById("cartTotal");
+      cartItems.innerHTML = "";
+      let total = 0;
+      cart.forEach((item, index) => {
+        total += item.price;
+        let li = document.createElement("li");
+        li.innerHTML = `${item.name} - Rp${item.price.toLocaleString()} <button onclick="removeFromCart(${index})">x</button>`;
+        cartItems.appendChild(li);
+      });
+      cartTotal.textContent = total.toLocaleString();
+      document.getElementById("cartBtn").innerText = `🛒 Keranjang (${cart.length}) - Rp${total.toLocaleString()}`;
+    }
+    document.getElementById("cartBtn").addEventListener("click", () => {
+      let popup = document.getElementById("cartPopup");
+      popup.style.display = popup.style.display === "block" ? "none" : "block";
+    });
+  </script>
+
+</body>
+</html>
